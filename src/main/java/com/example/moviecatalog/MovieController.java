@@ -26,9 +26,10 @@ public class MovieController {
     RatingService ratingService;
 
     @GetMapping("/movie")
-    public String showForm(Movie movie, Model model)
+    public String showForm(Model model)
     {
         model.addAttribute("directors", directorService.getAll());
+        model.addAttribute("movie", new Movie());
         return "add-movie";
     }
 
@@ -41,6 +42,7 @@ public class MovieController {
      
     @PostMapping("/movie")
     public String addOrUpdateMovie(@Valid Movie movie, BindingResult result, Model model) {
+        model.addAttribute("directors", directorService.getAll());
         if (result.hasErrors()) {
             return "add-movie";
         }

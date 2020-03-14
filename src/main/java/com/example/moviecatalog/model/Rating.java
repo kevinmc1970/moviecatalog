@@ -3,6 +3,7 @@ package com.example.moviecatalog.model;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Rating {
@@ -12,6 +13,7 @@ public class Rating {
     private Long id;
 
     @Column(name = "reviewer_name")
+    @NotBlank(message = "Reviewer Name is mandatory")
     private String reviewerName;
 
     @Min(0)

@@ -35,7 +35,8 @@ public class DirectorController {
     }
 
     @GetMapping("/director")
-    public String showAddForm(Director director, Model model) {
+    public String showAddForm(Model model) {
+        model.addAttribute("director", new Director());
         return "add-director";
     }
 

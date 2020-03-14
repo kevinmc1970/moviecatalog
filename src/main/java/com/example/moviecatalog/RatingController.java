@@ -42,6 +42,7 @@ public class RatingController {
         Movie movie = movieService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + id));
         model.addAttribute("movie", movie);
+        model.addAttribute("rating", new Rating());
         return "add-rating";
     }
 
@@ -50,7 +51,7 @@ public class RatingController {
         Movie movie = movieService.findById(movieId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + movieId));
         Rating rating = ratingService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
         model.addAttribute("movie", movie);
         model.addAttribute("rating", rating);
         return "add-rating";
@@ -59,13 +60,26 @@ public class RatingController {
 
     @PostMapping("/rating")
     public String addOrUpdateRating(@Valid Rating rating, BindingResult result, Model model) {
+        Movie movie = movieService.findById(rating.getMovie().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + rating.getMovie().getId()));
+        model.addAttribute("movie", movie);
+
         if (result.hasErrors()) {
             return "add-rating";
         }
+        model.addAttribute("ratings", ratingService.getAll());
+        ratingService.persist(rating);
+        return "ratings";
+    }
+
+    @GetMapping("/rating/delete/{id}")
+    public String deleteRating(@PathVariable("id") long id, Model model) {
+        Rating rating = ratingService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
         Movie movie = movieService.findById(rating.getMovie().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + rating.getMovie().getId()));
-        ratingService.persist(rating);
         model.addAttribute("movie", movie);
+        ratingService.remove(rating);
         model.addAttribute("ratings", ratingService.getAll());
         return "ratings";
     }
