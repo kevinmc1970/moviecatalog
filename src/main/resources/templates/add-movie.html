@@ -1,15 +1,29 @@
 <p><span><a th:href="@{'/'}">Home</a></span></p>
-<form action="#" th:action="@{/movie}" th:object="${movie}" method="post">
+<form action="#"
+      th:action="@{/movie/}"
+      th:object="${movie}"
+      method="post">
+    <p>
     <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <input type="text" th:field="*{name}" id="name" th:value="${movie.name} ?: ''" placeholder="Name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    <label for="director">Director</label>
-    <select class="form-control" id="director" name="director">
-        <option value="">Select Director</option>
+    </p>
+    <p>
+    <label>Director</label>
+    <select th:if="${movie.director}" class="form-control" name="director">
+        <option th:value="${movie.director.id}" th:text="${movie.director.name}"></option>
+        <option th:each="director : ${directors}"
+                th:value="${director.id}"
+                th:text="${director.name}"></option>
+    </select>
+    <select th:if="!${movie.director}" class="form-control" name="director">
         <option th:each="director : ${directors}"
                 th:value="${director.id}"
                 th:text="${director.name}"></option>
     </select>
     <span th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></span>
-    <input type="submit" value="Add Movie">
+    </p>
+    <input type="hidden" name="movie" th:value="${movie.id}">
+    <input type="submit" value="Update Movie">
 </form>
+<p><a th:href="@{'/ratings/' + ${movie.id} ?: ''}">Ratings</a></p>

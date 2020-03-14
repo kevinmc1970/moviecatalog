@@ -1,14 +1,12 @@
 package com.example.moviecatalog.service;
 
-import com.example.moviecatalog.model.Director;
 import com.example.moviecatalog.model.Rating;
-import com.example.moviecatalog.repository.DirectorRepository;
 import com.example.moviecatalog.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class RatingService implements RepoServiceI<Rating> {
@@ -28,8 +26,8 @@ public class RatingService implements RepoServiceI<Rating> {
     }
 
     @Override
-    public Set<Rating> getAll() {
-        return (Set<Rating>)ratingRepository.findAll();
+    public List<Rating> getAll() {
+        return ratingRepository.findAll();
     }
 
     @Override

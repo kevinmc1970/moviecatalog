@@ -40,14 +40,17 @@ public class DirectorController {
     }
 
     @GetMapping("/director/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model, Director director) {
-        model.addAttribute("director", directorService.findById(id));
-        return "update-director";
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        Director director = directorService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid director Id:" + id));
+        model.addAttribute("director", director);
+        return "add-director";
     }
 
     @PostMapping("/director")
     public String addOrUpdateDirector(@Valid Director director, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            return "add-director";
         }
 
         directorService.persist(director);
