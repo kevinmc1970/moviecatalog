@@ -1,4 +1,4 @@
-<p><span><a th:href="@{'/'}">Home</a></span></p>
+<p><div><a th:href="@{'/'}">Home</a></div><div th:if="${movie.name}"><a th:href="@{'/ratings/' + ${movie.id} ?: ''}">Ratings</a></div></div>
 <form action="#"
       th:action="@{/movie/}"
       th:object="${movie}"
@@ -26,4 +26,3 @@
     <input type="hidden" name="movie" th:value="${movie.id}">
     <input type="submit" value="Update Movie">
 </form>
-<p><a th:href="@{'/ratings/' + ${movie.id} ?: ''}">Ratings</a></p>

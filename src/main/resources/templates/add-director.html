@@ -1,10 +1,10 @@
 <p><span><a th:href="@{'/'}">Home</a></span></p>
 <form action="#" th:action="@{/director}" th:object="${director}" method="post">
     <p>
-    <label>Name</label>
-    <input th:if="${director}" type="text" th:field="*{name}" th:value="${director.name}">
-    <input th:if="!${director}" type="text" th:field="*{name}">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label>Name</label>
+        <input th:if="${director}" type="text" th:field="*{name}" th:value="${director.name}">
+        <input th:if="!${director}" type="text" th:field="*{name}">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     </p>
     <input type="hidden" name="director" th:value="${director.id}">
     <input type="submit" value="Update">

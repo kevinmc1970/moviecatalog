@@ -12,6 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MovieController {
@@ -37,6 +40,7 @@ public class MovieController {
     @RequestMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("movies", movieService.getAll());
+        model.addAttribute("directors", directorService.getAll());
         return "index";
     }
      
@@ -71,6 +75,22 @@ public class MovieController {
         movie.getRatings().stream().forEach(r -> ratingService.remove(r));
         movieService.remove(movie);
         model.addAttribute("movies", movieService.getAll());
+        return "index";
+    }
+
+    @PostMapping("/movie/director")
+    public String findMoviesByDirector(@RequestParam("director") long id, Model model) {
+        List<Movie> movies = movieService.findMoviesByDirector(id).orElse(Collections.emptyList());
+        model.addAttribute("movies", movies);
+        model.addAttribute("directors", directorService.getAll());
+        return "index";
+    }
+
+    @PostMapping("/movie/rating")
+    public String findMoviesByRating(@RequestParam("rating") long searchRating, Model model) {
+        List<Movie> movies = movieService.findMoviesByRating(searchRating).orElse(Collections.emptyList());
+        model.addAttribute("movies", movies);
+        model.addAttribute("directors", directorService.getAll());
         return "index";
     }
 }

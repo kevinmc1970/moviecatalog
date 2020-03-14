@@ -52,7 +52,7 @@ public class Movie {
         this.ratings = ratings;
     }
 
-    public double getAverageRating() {
-        return null == ratings ? 0 : ratings.stream().mapToInt(r -> r.getPercentageRating()).average().orElse(0);
+    public long getAverageRating() {
+        return null == ratings ? 0 : Math.round(ratings.stream().mapToInt(r -> r.getPercentageRating()).average().orElse(0));
     }
 }

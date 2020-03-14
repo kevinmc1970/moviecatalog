@@ -1,3 +1,4 @@
+<p><div><a th:href="@{'/'}">Home</a></div><div><a href="/movie">Add movie</a></div><div><a href="/directors">Directors</a></div></p>
 <div th:switch="${movies}">
     <h2 th:case="null">No movies yet!</h2>
     <div th:case="*">
@@ -23,7 +24,23 @@
             </tbody>
         </table>
     </div>
-    <p><a href="/movie">Add movie</a></p>
 </div>
-
-<p><a href="/directors">Directors</a></p>
+<p></p>
+<div>
+    <form action="#" th:action="@{/movie/director}" method="post">
+            <label>Find Movies By Director</label>
+            <select class="form-control" name="director">
+                <option th:each="director : ${directors}"
+                        th:value="${director.id}"
+                        th:text="${director.name}"></option>
+            </select>
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div>
+    <form action="#" th:action="@{/movie/rating}" method="post">
+        <label>Find Movies By Rating</label>
+        <input type="text" name="rating" value="0">
+        <input type="submit" value="Search">
+    </form>
+</div>

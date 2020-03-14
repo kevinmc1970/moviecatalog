@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RatingService implements RepoServiceI<Rating> {
+public class RatingService implements RatingServiceI<Rating> {
 
     @Autowired
     RatingRepository ratingRepository;
@@ -35,4 +35,8 @@ public class RatingService implements RepoServiceI<Rating> {
         return ratingRepository.findById(id);
     }
 
+    @Override
+    public List<Rating> getAllRatingsByMovie(Long movieId) {
+        return ratingRepository.findRatingsByMovie(movieId);
+    }
 }

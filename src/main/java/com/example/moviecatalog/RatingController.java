@@ -33,7 +33,7 @@ public class RatingController {
         Movie movie = movieService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + id));
         model.addAttribute("movie", movie);
-        model.addAttribute("ratings", ratingService.getAll());
+        model.addAttribute("ratings", ratingService.getAllRatingsByMovie(id));
         return "ratings";
     }
 
@@ -67,8 +67,8 @@ public class RatingController {
         if (result.hasErrors()) {
             return "add-rating";
         }
-        model.addAttribute("ratings", ratingService.getAll());
         ratingService.persist(rating);
+        model.addAttribute("ratings", ratingService.getAllRatingsByMovie(movie.getId()));
         return "ratings";
     }
 
@@ -80,7 +80,7 @@ public class RatingController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid movie Id:" + rating.getMovie().getId()));
         model.addAttribute("movie", movie);
         ratingService.remove(rating);
-        model.addAttribute("ratings", ratingService.getAll());
+        model.addAttribute("ratings", ratingService.getAllRatingsByMovie(movie.getId()));
         return "ratings";
     }
 }

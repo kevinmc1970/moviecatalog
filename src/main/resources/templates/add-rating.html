@@ -1,5 +1,5 @@
-<p><span><a th:href="@{'/'}">Home</a></span>
-    <span><a th:href="@{'/ratings/' + ${movie.id}}">Back</a></span></p>
+<p><div><a th:href="@{'/'}">Home</a></div>
+    <div><a th:href="@{'/ratings/' + ${movie.id}}">Back</a></div></p>
 <form action="#" th:action="@{/rating}" th:object="${rating}" method="post">
     <p>
     <label>Reviewer Name</label>
