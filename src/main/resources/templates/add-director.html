@@ -1,0 +1,6 @@
+<p><span><a th:href="@{'/'}">Home</a></span></p>
+<form action="#" th:action="@{/director}" th:object="${director}" method="post">
+    <label for="nameId">Name</label>
+    <input type="text" th:field="*{name}" id="nameId" name="name" placeholder="Name">
+    <input type="submit" value="Add Name">
+</form>

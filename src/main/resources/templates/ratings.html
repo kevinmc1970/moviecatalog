@@ -1,0 +1,29 @@
+<p><span><a th:href="@{'/'}">Home</a></span>
+    <span><a th:href="@{'/movie/' + ${movie.id}}">Back</a></span></p>
+<div th:switch="${ratings}">
+    <h2 th:case="null">No rating yet!</h2>
+    <div th:case="*">
+        <h2>Ratings</h2>
+        <table>
+            <thead>
+            <tr>
+                <th align="left" width="30%">Reviewer Name</th>
+                <th align="left" width="30%">Movie</th>
+                <th align="left" width="20%">Rating</th>
+                <th align="left" width="10%">Edit</th>
+                <th align="left" width="10%">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rating : ${ratings}">
+                <td th:text="${rating.reviewerName}"></td>
+                <td th:text="${rating.movie.name}"></td>
+                <td th:text="${rating.percentageRating}"></td>
+                <td><a th:href="@{/rating/{id}/{movieId}(id=${rating.id}, movieId=${rating.movie.id})}">Edit</a></td>
+                <td><a th:href="@{/rating/delete/{id}(id=${rating.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{'/rating/' + ${movie.id}}">Add Rating</a></p>
+</div>

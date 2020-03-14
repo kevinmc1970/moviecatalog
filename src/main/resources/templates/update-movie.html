@@ -1,0 +1,19 @@
+<p><span><a th:href="@{'/'}">Home</a></span></p>
+<form action="#"
+      th:action="@{/movie/}"
+      th:object="${movie}"
+      method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" th:value="${movie.name}" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <label for="director">Director</label>
+    <select class="form-control" id="director" name="director">
+        <option th:value="${movie.director.id}" th:text="${movie.director.name}"></option>
+        <option th:each="director : ${directors}"
+                th:value="${director.id}"
+                th:text="${director.name}"></option>
+    </select>
+    <input type="hidden" name="movie" th:value="${movie.id}">
+    <input type="submit" value="Update Movie">
+</form>
+<p><a th:href="@{'/ratings/' + ${movie.id}}">Ratings</a></p>
